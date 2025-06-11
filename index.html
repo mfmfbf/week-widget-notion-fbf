@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ugenummer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 4rem;
+      background: #f9f9f9;
+      color: #222;
+      user-select: none;
+    }
+    .uge {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .nummer {
+      font-size: 5rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+    }
+  </style>
+</head>
+<body>
+  <div class="uge">UGE</div>
+  <div class="nummer" id="weekNumber">--</div>
+
+  <script>
+    function getWeekNumber(d) {
+      const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+      date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+      const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+      const weekNo = Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
+      return weekNo;
+    }
+
+    const today = new Date();
+    const weekNumber = getWeekNumber(today);
+    const weekStr = weekNumber < 10 ? "0" + weekNumber : weekNumber;
+
+    document.getElementById("weekNumber").textContent = weekStr;
+  </script>
+</body>
+</html>
