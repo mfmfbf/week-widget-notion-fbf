@@ -1,33 +1,61 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="da" >
 <head>
   <meta charset="UTF-8" />
   <title>Ugenummer</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;900&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 4rem;
-      background: #f9f9f9;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #f7f9fc, #e3e8ef);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       color: #222;
       user-select: none;
     }
-    .uge {
-      font-size: 1.5rem;  /* Halv størrelse af 3rem */
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.5rem;
+
+    .container {
+      background: #ffffff;
+      padding: 2.5rem 4rem;
+      border-radius: 12px;
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        0 2px 6px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      min-width: 160px;
+      max-width: 240px;
     }
-    .nummer {
-      font-size: 2.5rem;  /* Halv størrelse af 5rem */
-      font-weight: 900;
+
+    .uge {
+      font-weight: 600;
+      font-size: 1.8rem;
       letter-spacing: 0.15em;
+      color: #555f7a;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+    }
+
+    .nummer {
+      font-weight: 900;
+      font-size: 4.5rem;
+      color: #1f2937;
+      letter-spacing: 0.2em;
+      line-height: 1;
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
     }
   </style>
 </head>
 <body>
-  <div class="uge">UGE</div>
-  <div class="nummer" id="weekNumber">--</div>
+  <div class="container" role="contentinfo" aria-label="Ugenummer">
+    <div class="uge">UGE</div>
+    <div class="nummer" id="weekNumber">--</div>
+  </div>
 
   <script>
     function getWeekNumber(d) {
