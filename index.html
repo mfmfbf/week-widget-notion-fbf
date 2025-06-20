@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="da" >
+<html lang="da">
 <head>
   <meta charset="UTF-8" />
   <title>Ugenummer</title>
@@ -16,11 +16,13 @@
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       color: #222;
       user-select: none;
+      background: #f4f4f4;
+      transition: background 0.3s, color 0.3s;
     }
 
     .container {
       background: #ffffff;
-      padding: 1.2rem 2rem; /* mindre padding */
+      padding: 1.2rem 2rem;
       border-radius: 12px;
       box-shadow:
         0 8px 24px rgba(0, 0, 0, 0.12),
@@ -28,30 +30,69 @@
       text-align: center;
       min-width: 130px;
       max-width: 180px;
+      position: relative;
+      transition: background 0.3s, color 0.3s;
     }
 
     .uge {
       font-weight: 600;
-      font-size: 1.3rem;  /* mindre tekst */
+      font-size: 1.3rem;
       letter-spacing: 0.15em;
       color: #555f7a;
       margin-bottom: 0.4rem;
       text-transform: uppercase;
+      transition: color 0.3s;
     }
 
     .nummer {
       font-weight: 900;
-      font-size: 3rem; /* mindre tekst */
+      font-size: 3rem;
       color: #1f2937;
       letter-spacing: 0.2em;
       line-height: 1;
       font-feature-settings: "tnum";
       font-variant-numeric: tabular-nums;
+      transition: color 0.3s;
+    }
+
+    .dark body {
+      background: #111;
+      color: #eee;
+    }
+
+    .dark .container {
+      background: #1e1e1e;
+    }
+
+    .dark .uge {
+      color: #a0aec0;
+    }
+
+    .dark .nummer {
+      color: #f9fafb;
+    }
+
+    .dark-toggle {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: none;
+      border: none;
+      font-size: 0.9rem;
+      color: #888;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.3s;
+    }
+
+    .dark .dark-toggle {
+      color: #ccc;
     }
   </style>
 </head>
 <body>
   <div class="container" role="contentinfo" aria-label="Ugenummer">
+    <button class="dark-toggle" onclick="toggleDarkMode()" aria-label="Skift til mørk tilstand">🌓</button>
     <div class="uge">UGE</div>
     <div class="nummer" id="weekNumber">--</div>
   </div>
@@ -65,10 +106,13 @@
       return weekNo;
     }
 
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+    }
+
     const today = new Date();
     const weekNumber = getWeekNumber(today);
     const weekStr = weekNumber < 10 ? "0" + weekNumber : weekNumber;
-
     document.getElementById("weekNumber").textContent = weekStr;
   </script>
 </body>
