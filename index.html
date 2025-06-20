@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="da" class="dark">
 <head>
   <meta charset="UTF-8" />
   <title>Ugenummer</title>
@@ -98,22 +98,35 @@
   </div>
 
   <script>
-    function getWeekNumber(d) {
-      const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-      date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
-      const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-      const weekNo = Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
-      return weekNo;
-    }
+  function getWeekNumber(d) {
+    const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
+    return weekNo;
+  }
 
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
+  function applySavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
     }
+  }
 
-    const today = new Date();
-    const weekNumber = getWeekNumber(today);
-    const weekStr = weekNumber < 10 ? "0" + weekNumber : weekNumber;
-    document.getElementById("weekNumber").textContent = weekStr;
-  </script>
+  function toggleDarkMode() {
+    const root = document.documentElement;
+    root.classList.toggle('dark');
+    const isDark = root.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+
+  // Kør når siden loader
+  applySavedTheme();
+
+  const today = new Date();
+  const weekNumber = getWeekNumber(today);
+  const weekStr = weekNumber < 10 ? "0" + weekNumber : weekNumber;
+  document.getElementById("weekNumber").textContent = weekStr;
+</script>
 </body>
 </html>
